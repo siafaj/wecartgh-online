@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'store',  # Custom 'store' app for product management
     'carts',  # Custom 'carts' app for shopping cart functionality
     'orders',  # Custom 'orders' app for order management
+    'admin_honeypot',  # Honeypot for admin security
 ]
 
 MIDDLEWARE = [
