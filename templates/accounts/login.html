@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- SECTION -->
+<div id="newsletter" class="section">
+    {% if request.GET.command == "verification" %}
+    <div class="container">
+        <div class="newsletter">
+            <div class="alert alert-success">
+                A verification email has been sent to <strong>{{ request.GET.email }}</strong>.
+                Please check your inbox and follow the instructions to activate your account.
+                <br><br>
+                If you don't see the email, please check your spam folder.
+                <br><br>
+                Already verified? <a href="{% url 'login' %}">Login</a>
+                <br><br>
+                <strong>Note:</strong>
+                If you have not received the email, please contact our support team for assistance.
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+
+
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <div class="newsletter">
+
+                        <p><strong>SIGN IN</strong></p>
+                        <form action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="col order-details">
+                                {% include 'includes/alerts.html' %}
+                                <div class="form-group">
+                                    <input class="form-control" type="email" placeholder="Enter Your Email" name="email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="password" placeholder="Enter Your Password"
+                                        name="password" required>
+                                </div>
+                                <center><button type="submit" class="primary-btn order-submit">Login</button></center>
+                                {{ form.email.errors }}
+                                {{ form.non_field_errors }}
+                            </div>
+                            <div class="form-group">
+                                <a href="{% url 'forgot_password' %}" class="text-center mt-6"><br>Forgot password?</a>
+                            </div> <!-- form-group form-check .// -->
+                            <div class="form-group">
+                                Don't have account? <a href="{% url 'register' %}"><strong class="text-center mt-1">Sign
+                                        up</a></strong>
+                                <br><br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    {% endif %}
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+{% endblock %}

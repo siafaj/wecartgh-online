@@ -1,0 +1,178 @@
+{% load static %}
+<!-- HEADER -->
+<header>
+    <!-- TOP HEADER -->
+    <div id="top-header">
+        <div class="container">
+            <ul class="header-links pull-left">
+                <li><a href="#"><i class="fa fa-dollar"></i> GH₵</a></li>
+                <li><a href="tel:+233-55-036-1313"><i class="fa fa-phone"></i> +233-55-036-1313</a></li>
+                <li><a href="mailto:info@wecartgh.com"><i class="fa fa-envelope-o"></i> info@wecartgh.com</a></li>
+            </ul>
+            <ul class="header-links pull-right">
+                {% if user.id is None %}
+                <li>
+                    <i class="fa fa-user-o"></i><small class="title text-muted">Welcome
+                        Guest!</small><br>
+                    <a href="{% url 'login' %}">Sign in</a> <span class="dark-transp"> | </span>
+                    <a href="{% url 'register' %}"> Register</a>
+                </li>
+                {% else %}
+                <li>
+                    <i class="fa fa-user-o"></i><small class="title text-muted">Welcome,
+                        {{ user.first_name }}!</small><br>
+                    <a href="{% url 'dashboard'%}">Dashboard</a> <span class="dark-transp"> | </span>
+                    <a href="{% url 'logout' %}"> Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <!-- /TOP HEADER -->
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-2">
+                    <div class="header-logo">
+                        <a href="{% url 'home' %}" class="logo">
+                            <img src="{% static 'images/logo-1.png' %}" alt="wecartgh logo" class="img-responsive">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-8">
+                    <div class="header-search">
+                        <div class="dropdown">
+                            <form action="{% url 'search' %}" class="search">
+
+                                <button class="input-select" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="true">
+                                    Categories
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a class="dropdown-item" href="{% url 'store' %}">
+                                            All Products</a>
+                                    </li>
+                                    {% for category in links %}
+                                    <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                                    {% endfor %}
+                                </div>
+                                <!-- <select class="input-select">
+                                        <option value="0">All Categories</option>
+                                        {% for category in links %}
+                                            <a href="{{ category.get_url }}"><option value="{{ category.id }}">{{ category.category_name }}</option></a>
+                                        {% endfor %}
+                                    </select> -->
+                                <input type="text" class="input" placeholder="Search here" name="keyword">
+                                <button class="fa fa-search search-btn" type="submit"></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-2 clearfix">
+                    <div class="header-ctn">
+                        <!-- Wishlist -->
+                        <!-- <div>
+    									<a href="#">
+    										<i class="fa fa-heart-o"></i>
+    										<span>Your Wishlist</span>
+    										<div class="qty">2</div>
+    									</a>
+    								</div> -->
+                        <!-- /Wishlist -->
+
+                        <!-- Cart -->
+                        <div>
+                            <a href="{% url 'cart' %}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Your Cart</span>
+                                <div class="qty">{{ cart_count }}</div>
+                            </a>
+                            <!-- <div class="cart-dropdown">
+                                <div class="cart-list">
+                                    
+                                    <div class="product-widget">
+                                        <div class="product-img">
+                                            <img src="{% static 'images/1.jpg' %}" alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>GH₵980.00</h4>
+                                        </div>
+                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                    </div>
+
+                                </div>
+                                <div class="cart-summary">
+                                    <small>4 Item(s) selected</small>
+                                    <h5>SUBTOTAL: GH₵2940.00</h5>
+                                </div>
+                                <div class="cart-btns">
+                                    <a href="{% url 'cart' %}">View Cart</a>
+                                    <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div> -->
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+<!-- NAVIGATION -->
+<nav id="navigation">
+    <!-- container -->
+    <div class="container">
+        <!-- responsive-nav -->
+        <div id="responsive-nav">
+            <!-- NAV -->
+            <ul class="main-nav nav navbar-nav">
+                <li class="active"><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'store' %}">All Products</a></li>
+                {% for category in links %}
+                <li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                {% endfor %}
+            </ul>
+            <!-- /NAV -->
+        </div>
+        <!-- /responsive-nav -->
+    </div>
+    <!-- /container -->
+
+    
+
+</nav>
+<!-- /NAVIGATION -->
+<!-- jQuery Plugins -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script src="{% static 'js/nouislider.min.js' %}"></script>
+<script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>

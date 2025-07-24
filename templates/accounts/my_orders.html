@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        {% include 'includes/alerts.html' %}
+        <!-- row -->
+        <div class="row">
+            <aside class="col-3">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    {% include 'includes/dashboard_sidebar.html' %}
+
+                </div>
+                <!-- /Order Summary Details Ends Here -->
+            </aside>
+
+            <!-- Order Total -->
+            <div class="col-md-9 order-details">
+                <div class="section-title text-justify order-col">
+                    <div class="order-col">
+                        <div>
+                            <strong>Your order history </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-summary">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Order #</th>
+                                        <th scope="col">Billing Name</th>
+                                        <th scope="col">Phone Number</th>
+                                        <th scope="col">Order Total</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <th scope="row"><a href="{% url 'order_detail' order.order_number %}"> {{ order.order_number }}</a></th>
+                                        <td>{{ order.full_name }}</td>
+                                        <td>{{ order.phone}}</td>
+                                        <td>GH₵{{ order.order_total }}0</td>
+                                        <td>{{ order.created_at }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+    {% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- SECTION -->
+<div id="newsletter" class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+
+                    <div class="newsletter">
+
+                        <h2 class="text-center">Create An Account</h2>
+                        <form action="{% url 'register' %}" method="post">
+                            {% csrf_token %}
+
+                            <div class="col order-details">
+                                {% include 'includes/alerts.html' %}
+                                <div class="form-group">
+                                    {{ form.first_name }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.last_name }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.email }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.phone_number }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.password }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.confirm_password }}
+                                </div>
+                                <center><button type="submit" class="primary-btn order-submit">Register</button></center>
+                                {{ form.email.errors }}
+                                {{ form.non_field_errors }}
+                            </div>
+
+
+                            <div class="form-group">
+                                <strong class="text-center mt-4">Already have an account? <a
+                                        href="{% url 'login' %}">Login</a></strong>
+                                <br><br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+{% endblock %}

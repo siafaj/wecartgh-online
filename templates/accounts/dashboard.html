@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        {% include 'includes/alerts.html' %}
+        <!-- row -->
+        <div class="row">
+            <aside class="col-3">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    {% include 'includes/dashboard_sidebar.html' %}
+
+                </div>
+                <!-- /Order Summary Details Ends Here -->
+            </aside>
+
+            <!-- Order Total -->
+            <div class="col-md-9 order-details">
+                <div class="section-title text-justify order-col">
+                    <div class="order-col">
+                        <div>
+                            <strong>Logged in as: </strong>{{ user.full_name }}                       
+                        </div>
+                    </div>
+                </div>
+                <div class="order-summary">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="order-details" style="text-align: center;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Orders</h5>
+                                    <h4>{{ orders_count }}</h4>
+                                    <a href="{% url 'my_orders'%}">View Orders</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="order-details" style="text-align: center;">
+                                <div class="card-body">
+                                     <img src="{{ userprofile.profile_picture.url }}" 
+                                     alt="User Profile" 
+                                     width="50" 
+                                     height="50" 
+                                     style="border-radius: 50%;">
+                                     <p style="margin-bottom: 0;">{{ user.email }}</p>
+                                    <p style="margin-bottom: 0;">{{ user.phone_number }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+    {% endblock %}

@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    {% if 'search' in request.path %}
+                    <h3 class="title">Search Results</h3>
+                    {% else %}
+                    <h3 class="title">Our Store</h3>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- /section title -->
+            <!-- ASIDE -->
+            <div id="aside" class="col-md-3">
+                <!-- aside Widget -->
+                <div class="aside">
+                    <h3 class="aside-title">Categories</h3>
+                    <div class="card-body">
+                        <ul class="list-menu">
+                            <li><a href="{% url 'store' %}">All Products</a></li>
+                            {% for category in links %}
+                            <li><a href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div> <!-- card-body.// -->
+                </div>
+                <!-- /aside Widget -->
+
+                <!-- aside Widget -->
+               <!--  <div class="aside">
+                    <h3 class="aside-title">Price</h3>
+                    <div class="price-filter">
+                        <div id="price-slider"></div>
+                        <div class="input-number price-min">
+                            <input id="price-min" type="number">
+                            <span class="qty-up">+</span>
+                            <span class="qty-down">-</span>
+                        </div>
+                        <span>-</span>
+                        <div class="input-number price-max">
+                            <input id="price-max" type="number">
+                            <span class="qty-up">+</span>
+                            <span class="qty-down">-</span>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- /aside Widget -->
+                <!-- aside Widget -->
+                <!-- store top filter -->
+                <!-- <div class="aside">
+                    <h3 class="aside-title">Size</h3>
+                    <div class="store-sort">
+                        <label>
+                            Sort By:
+                            <select class="input-select">
+                                <option value="0">Popular</option>
+                                <option value="1">Position</option>
+                            </select>
+                        </label>
+
+                        <label>
+                            Show:
+                            <select class="input-select">
+                                <option value="0">20</option>
+                                <option value="1">50</option>
+                            </select>
+                        </label>
+                    </div>
+                </div> -->
+                <!-- /store top filter -->
+                <!-- /aside Widget -->
+
+
+            </div>
+            <!-- /ASIDE -->
+
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+                <!-- store top filter -->
+
+                <!-- /store top filter -->
+
+                <!-- store products -->
+                <div class="row">
+                    {% if products %}
+                    <div class="store-filter clearfix">
+                        <span class="store-qty"> <b>{{ product_count }}</b> product(s) available</span>
+                    </div>
+                    {% for product in products %}
+                    <!-- product -->
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="{{ product.images.url }}" alt="">
+                                <!-- <div class="product-label">
+                                    <span class="new">NEW</span>
+                                </div> -->
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{ product.category }}</p>
+                                <h3 class="product-name"><a href="{{ product.get_url }}">{{ product.product_name }}</a>
+                                </h3>
+                                <h4 class="product-price">GH₵{{ product.price }}</h4>
+                                <div class="rating-star">
+                                    <span>
+                                        <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o{% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o{% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o{% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o{% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o{% endif %}"
+                                            aria-hidden="true"></i>
+                                        
+                                    </span>
+                                </div>
+                                <!-- <div class="product-btns">
+                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                </div> -->
+                            </div>
+                            <div class="add-to-cart">
+                                <a href="{{ product.get_url }}"><button class="add-to-cart-btn"><i
+                                            class="fa fa-eye"></i> view details</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                    <div class="clearfix visible-sm visible-xs"></div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-md-12">
+                        <div class="alert alert-info">
+                            <h2>
+                                No products found matching your search criteria.
+                            </h2>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- /store products -->
+
+                <!-- store bottom filter -->
+                <div class="store-filter clearfix">
+                    {% if products.has_other_pages %}
+                    <ul class="store-pagination">
+                        {% if products.has_previous %}
+                        <li class="page-item"><a href="?page={{ products.previous_page_number }}"><i
+                                    class="fa fa-angle-left"></i></a></li>
+                        {% else %}
+                        <li class="page-item disabled"><a href="#"><i class="fa fa-angle-left"></i></a>
+                        </li>
+                        {% endif %}
+
+                        {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor%}
+
+                        {% if products.has_next %}
+                        <li class="page-item"><a href="?page={{ products.next_page_number }}"><i
+                                    class="fa fa-angle-right"></i></a></li>
+                        {% else %}
+                        <li class="disabled"><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+<!-- jQuery Plugins -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script src="{% static 'js/nouislider.min.js' %}"></script>
+<script src="{% static 'js/jquery.zoom.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

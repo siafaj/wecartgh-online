@@ -1,0 +1,24 @@
+{% autoescape off %}
+
+Dear {{ order.first_name }},
+
+Thank you for your order!
+
+Order Number: {{ order.order_number }}
+Total: GH₵{{ order.order_total }}0
+
+Shipping To:
+{{ order.full_name }}
+{{ order.address_line_1 }}
+{{ order.address_line_2 }}
+{{ order.city }}, {{ order.region }}
+{{ order.country }}
+Phone: {{ order.phone }}
+Email: {{ order.email }}
+
+
+We’ll email you again once your package is on its way.
+
+Thanks for choosing weCart!
+
+{% endautoescape %}
